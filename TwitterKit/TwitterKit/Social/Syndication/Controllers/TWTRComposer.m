@@ -26,6 +26,25 @@
 #import "TWTRComposerViewController.h"
 #import "TWTRTwitter.h"
 
+@implementation TWTRComposerResult
+
+- (instancetype)init NS_UNAVAILABLE
+{
+    assert(0);
+}
+
+- (instancetype)initWithError:(NSError *)error isCancelled:(BOOL)isCancelled tweet:(TWTRTweet *)tweet
+{
+    if ((self = [super init])) {
+        _error = error;
+        _isCancelled = isCancelled;
+        _tweet = tweet;
+    }
+    return self;
+}
+
+@end
+
 @interface TWTRComposer () <TWTRComposerViewControllerDelegate>
 
 @property (nonatomic) UIImage *initialImage;
@@ -93,9 +112,16 @@ static dispatch_once_t onceToken;
             if (session) {
                 [self presentFromViewController:fromController];
             } else {
-                NSLog(@"[TwitterKit] No users for composer.");
+                if (error == nil) {
+                    
+                    NSLog(@"[TwitterKit] No users for composer.");
+                    error = [NSError errorWithDomain:TWTRErrorDomain
+                                                code:TWTRErrorCodeNoAuthentication
+                                            userInfo:@{ NSLocalizedDescriptionKey: @"Error: No users for composer." }];
+                }
                 if (self.completion) {
-                    self.completion(TWTRComposerResultCancelled);
+                    TWTRComposerResult *result = [[TWTRComposerResult alloc] initWithError:error isCancelled:NO tweet:nil];
+                    self.completion(result);
                 }
             }
         }];
@@ -132,22 +158,25 @@ static dispatch_once_t onceToken;
 - (void)composerDidCancel:(TWTRComposerViewController *)controller
 {
     if (self.completion) {
-        self.completion(TWTRComposerResultCancelled);
+        TWTRComposerResult *result = [[TWTRComposerResult alloc] initWithError:nil isCancelled:YES tweet:nil];
+        self.completion(result);
     }
 }
 
 - (void)composerDidSucceed:(TWTRComposerViewController *)controller withTweet:(TWTRTweet *)tweet
 {
     if (self.completion) {
-        self.completion(TWTRComposerResultDone);
+        TWTRComposerResult *result = [[TWTRComposerResult alloc] initWithError:nil isCancelled:NO tweet:tweet];
+        self.completion(result);
     }
 }
 
 - (void)composerDidFail:(TWTRComposerViewController *)controller withError:(NSError *)error
 {
-    NSLog(@"[TwitterKit] Composer did fail: %@", error);
     if (self.completion) {
-        self.completion(TWTRComposerResultCancelled);
+        NSLog(@"[TwitterKit] Composer did fail: %@", error);
+        TWTRComposerResult *result = [[TWTRComposerResult alloc] initWithError:error isCancelled:NO tweet:nil];
+        self.completion(result);
     }
 }
 

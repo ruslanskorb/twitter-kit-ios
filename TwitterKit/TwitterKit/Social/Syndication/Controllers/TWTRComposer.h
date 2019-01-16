@@ -17,27 +17,36 @@
 
 #import <UIKit/UIKit.h>
 
+@class TWTRTweet;
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Possible values for the <i>result</i> parameter of the completionHandler property.
+ *  The <i>result</i> parameter of the completionHandler property.
  */
-typedef NS_ENUM(NSInteger, TWTRComposerResult) {
-    /**
-     *  The composer is dismissed without sending the Tweet (i.e. the user selects Cancel, or the account is unavailable).
-     */
-    TWTRComposerResultCancelled,
+@interface TWTRComposerResult : NSObject
 
-    /**
-     *  The composer is dismissed and the message is being sent in the background, after the user selects Done.
-     */
-    TWTRComposerResultDone
-};
+/**
+ *  An error has occurred while presenting the composer or sending a Tweet.
+ */
+@property (nonatomic, readonly, strong, nullable) NSError *error;
+
+/**
+ *  The composer is dismissed without sending the Tweet, after the user has selected Cancel.
+ */
+@property (nonatomic, readonly) BOOL isCancelled;
+
+/**
+ *  The composer is dismissed and the message is being sent in the background, after the user has selected Done.
+ */
+@property (nonatomic, readonly, strong, nullable) TWTRTweet *tweet;
+
+@end
 
 /**
  *  Completion block called when the user finishes composing a Tweet.
  */
-typedef void (^TWTRComposerCompletion)(TWTRComposerResult result);
+typedef void (^TWTRComposerCompletion)(TWTRComposerResult *);
 
 /**
  *  The TWTRComposer class presents a view to the user to compose a Tweet.
@@ -74,7 +83,7 @@ typedef void (^TWTRComposerCompletion)(TWTRComposerResult result);
 /**
  * Presents the composer, with an optional completion handler from the specified view controller.
  * @param fromController The controller in which to present the composer from.
- * @param completion completion The completion handler, which has a single parameter indicating whether the user finished or cancelled the Tweet composition.
+ * @param completion completion The completion handler, which has a single parameter indicating the result of the Tweet composition.
  */
 - (void)showFromViewController:(UIViewController *)fromController completion:(nullable TWTRComposerCompletion)completion;
 
