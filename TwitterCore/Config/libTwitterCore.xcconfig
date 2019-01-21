@@ -13,6 +13,7 @@
 // limitations under the License.
 
 PRODUCT_NAME = TwitterCore
+SUPPORTED_PLATFORMS = iphonesimulator iphoneos
 
 PRIVATE_HEADERS_FOLDER_PATH = PrivateHeaders/${PRODUCT_NAME}
 PUBLIC_HEADERS_FOLDER_PATH = Headers/${PRODUCT_NAME}
