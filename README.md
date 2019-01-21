@@ -62,12 +62,11 @@ binary "https://ton.twimg.com/syndication/twitterkit/ios/TwitterKit.json"
 binary "https://ton.twimg.com/syndication/twitterkit/ios/TwitterCore.json"
 ```
 
-After running `carthage update`, add `TwitterKit.framework` and `TwitterShareExtensionUI.framework` to the `Linked Frameworks and Binaries` section under General of your App target. In addition to that, make sure that when you are adding the copy-frameworks run script for Carthage that you add the following input paths: 
+After running `carthage update`, add `TwitterCore.framework` and `TwitterKit.framework` to the `Linked Frameworks and Binaries` section under General of your App target. In addition to that, make sure that when you are adding the copy-frameworks run script for Carthage that you add the following input paths: 
 
 ```swift
 $(SRCROOT)/Carthage/Build/iOS/TwitterCore.framework
 $(SRCROOT)/Carthage/Build/iOS/TwitterKit.framework
-$(SRCROOT)/Carthage/Build/iOS/TwitterShareExtensionUI.framework
 ```
 
 Make sure that the run script phase is after your Link Binaries with Libraries phase to prevent issues with properly archiving your iOS application.
