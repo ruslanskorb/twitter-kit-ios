@@ -41,17 +41,6 @@ Using Twitter Kit from source in production applications is not officially suppo
 * Generate your Twitter API keys through the [Twitter developer apps dashboard](https://apps.twitter.com/).
 * Install Twitter Kit using instructions below.
 * For extensive documentation, please see the official [documentation](https://github.com/twitter/twitter-kit-ios/wiki).
-	
-### Install using Cocoapods
-
-To add Twitter Kit to your app, simply add `TwitterKit` to your Podfile.
-
-```ruby
-target 'MyApp' do
-  use_frameworks!
-  pod 'TwitterKit'
-end
-```
 
 ### Install using Carthage
 
