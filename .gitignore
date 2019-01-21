@@ -21,7 +21,10 @@ config.status
 *.gcda
 *.gcno
 
-!**/Carthage/Build
+**/Carthage/Build
 Artifacts
 DemoApp/Config.xcconfig
 
+# Binaries
+#
+*.zip
