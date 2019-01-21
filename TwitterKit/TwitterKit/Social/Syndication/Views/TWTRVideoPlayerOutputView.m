@@ -426,13 +426,13 @@ NSString *videoGravityForAspectRatio(TWTRVideoPlayerAspectRatio aspectRatio)
             BOOL result = [compositionVideoTrack insertTimeRange:editRange ofTrack:sourceVideoTrack atTime:nextStartTime error:&editError];
             if (!result) {
                 hadError = YES;
-                NSLog(@"An error occured while creating the composition: %@ (video track %@)", editError, compositionVideoTrack);
+                NSLog(@"An error occurred while creating the composition: %@ (video track %@)", editError, compositionVideoTrack);
             } else {
                 if (hasAudioTrack) {
                     result = [compositionAudioTracks[0] insertTimeRange:editAudioRange ofTrack:sourceAudioTrack atTime:nextStartTime error:&editError];
                     if (!result) {
                         hadError = YES;
-                        NSLog(@"An error occured while creating the composition: %@ (audio track %@)", editError, sourceAudioTrack);
+                        NSLog(@"An error occurred while creating the composition: %@ (audio track %@)", editError, sourceAudioTrack);
                     }
                 }
 
@@ -442,14 +442,14 @@ NSString *videoGravityForAspectRatio(TWTRVideoPlayerAspectRatio aspectRatio)
                     result = [compositionVideoTrack insertTimeRange:editRange ofTrack:sourceVideoTrack atTime:nextStartTime error:&editError];
                     if (!result) {
                         hadError = YES;
-                        NSLog(@"An error occured while creating the composition: %@ (video track %@)", editError, compositionVideoTrack);
+                        NSLog(@"An error occurred while creating the composition: %@ (video track %@)", editError, compositionVideoTrack);
                         break;
                     } else if (hasAudioTrack) {
                         currentAudioTrackIndex = ((i + 1) % 2);
                         result = [compositionAudioTracks[currentAudioTrackIndex] insertTimeRange:editAudioRange ofTrack:sourceAudioTrack atTime:nextStartTime error:&editError];
                         if (!result) {
                             hadError = YES;
-                            NSLog(@"An error occured while creating the composition: %@ (audio track %@)", editError, sourceAudioTrack);
+                            NSLog(@"An error occurred while creating the composition: %@ (audio track %@)", editError, sourceAudioTrack);
                             break;
                         }
                     }
