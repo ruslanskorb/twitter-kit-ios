@@ -47,8 +47,8 @@ Using Twitter Kit from source in production applications is not officially suppo
 To install Twitter Kit for iOS using Carthage, add the following lines to your Cartfile. For more information about how to set up Carthage and your Cartfile, see [here](https://github.com/Carthage/Carthage).
 
 ```swift
-binary "https://raw.githubusercontent.com/rsk-lab/twitter-kit-ios/4.0.0/TwitterCore.json"
-binary "https://raw.githubusercontent.com/rsk-lab/twitter-kit-ios/4.0.0/TwitterKit.json"
+binary "https://raw.githubusercontent.com/ruslanskorb/twitter-kit-ios/4.0.0/TwitterCore.json"
+binary "https://raw.githubusercontent.com/ruslanskorb/twitter-kit-ios/4.0.0/TwitterKit.json"
 ```
 
 After running `carthage update`, add `TwitterCore.framework` and `TwitterKit.framework` to the `Linked Frameworks and Binaries` section under General of your App target. In addition to that, make sure that when you are adding the copy-frameworks run script for Carthage that you add the following input paths: 
